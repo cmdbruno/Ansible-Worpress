@@ -29,3 +29,10 @@
         state: directory
         owner: www-data
         group: www-data
+
+    - name: Unarchive a file that needs to be downloaded
+      ansible.builtin.unarchive:
+        src: https://wordpress.org/latest.tar.gz
+        dest: /srv/www
+        remote_src: yes
+      
