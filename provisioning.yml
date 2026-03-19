@@ -1,5 +1,9 @@
 ---
 - hosts: all
+  handlers:
+  - name: Restart Apache
+    command: service apache2 restart
+
   become: yes
 
   tasks:
@@ -36,3 +40,9 @@
         dest: /srv/www
         remote_src: yes
       
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: files/wordpress.conf
+        dest: /etc/apache2/sites-available/000-default.conf
+      notify: 
+        - Restart Apache
